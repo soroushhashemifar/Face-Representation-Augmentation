@@ -117,7 +117,7 @@ class EmbeddingGeneratorDecoder_VIT(torch.nn.Module):
         super(EmbeddingGeneratorDecoder_VIT, self).__init__()
         
         self.vit = VisionTransformer(**{
-                                        'embed_dim': 128,
+                                        'embed_dim': 256,
                                         'hidden_dim': 256,
                                         'num_heads': 4,
                                         'num_layers': 4,
