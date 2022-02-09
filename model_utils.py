@@ -4,23 +4,6 @@ import torch
 from torch import nn
 
 
-def img_to_patch(x, patch_size, flatten_channels=True):
-    """
-    Inputs:
-        x - torch.Tensor representing the image of shape [B, C, H, W]
-        patch_size - Number of pixels per dimension of the patches (integer)
-        flatten_channels - If True, the patches will be returned in a flattened format
-                           as a feature vector instead of a image grid.
-    """
-    B, C, H, W = x.shape
-    x = x.reshape(B, C, H//patch_size, patch_size, W//patch_size, patch_size)
-    x = x.permute(0, 2, 4, 1, 3, 5) # [B, H', W', C, p_H, p_W]
-    x = x.flatten(1,2)              # [B, H'*W', C, p_H, p_W]
-    if flatten_channels:
-        x = x.flatten(2,4)          # [B, H'*W', C*p_H*p_W]
-    return x
-
-
 class AttentionBlock(nn.Module):
 
     def __init__(self, embed_dim, hidden_dim, num_heads, dropout=0.0):
@@ -49,7 +32,10 @@ class AttentionBlock(nn.Module):
     def forward(self, x):
         inp_x = self.layer_norm_1(x)
         x = x + self.attn(inp_x, inp_x, inp_x)[0]
-        x = x + self.linear(self.layer_norm_2(x))
+        x_n = self.layer_norm_2(x)
+        x_n = self.linear(x_n)
+        x = x + x_n
+        
         return x
 
 
@@ -89,7 +75,7 @@ class VisionTransformer(nn.Module):
 
     def forward(self, x):
         # Preprocess input
-        x = img_to_patch(x, self.patch_size)
+        x = self.img_to_patch(x, self.patch_size)
         B, T, _ = x.shape
         x = self.input_layer(x)
 
@@ -110,6 +96,23 @@ class VisionTransformer(nn.Module):
         
         return out
 
+    def img_to_patch(self, x, patch_size, flatten_channels=True):
+        """
+        Inputs:
+            x - torch.Tensor representing the image of shape [B, C, H, W]
+            patch_size - Number of pixels per dimension of the patches (integer)
+            flatten_channels - If True, the patches will be returned in a flattened format
+                            as a feature vector instead of a image grid.
+        """
+        B, C, H, W = x.shape
+        x = x.reshape(B, C, H//patch_size, patch_size, W//patch_size, patch_size)
+        x = x.permute(0, 2, 4, 1, 3, 5) # [B, H', W', C, p_H, p_W]
+        x = x.flatten(1,2)              # [B, H'*W', C, p_H, p_W]
+        if flatten_channels:
+            x = x.flatten(2,4)          # [B, H'*W', C*p_H*p_W]
+        
+        return x
+
 
 class EmbeddingGeneratorDecoder_VIT(torch.nn.Module):
     
@@ -117,7 +120,7 @@ class EmbeddingGeneratorDecoder_VIT(torch.nn.Module):
         super(EmbeddingGeneratorDecoder_VIT, self).__init__()
         
         self.vit = VisionTransformer(**{
-                                        'embed_dim': 256,
+                                        'embed_dim': 512, # 256
                                         'hidden_dim': 256,
                                         'num_heads': 4,
                                         'num_layers': 4,

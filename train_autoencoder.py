@@ -133,10 +133,10 @@ if __name__ == "__main__":
     # net.load_state_dict(state_dict)
 
     criterion_bce = torch.nn.BCELoss(reduction='mean')
-    criterion_triplet_loss = torch.nn.TripletMarginLoss(margin=5.0, p=2)
+    criterion_triplet_loss = torch.nn.TripletMarginLoss(margin=10.0, p=2)
 
     optimizer = torch.optim.Adam(net.parameters(), lr=INIT_LR, weight_decay=1e-4)
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=20, min_lr=1e-6)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=30, min_lr=1e-6)
 
     historical_loss = []
     historical_val_loss = []
@@ -228,6 +228,9 @@ if __name__ == "__main__":
 
         historical_loss.append((np.mean(losses), np.mean(losses1), np.mean(losses2)))
         historical_val_loss.append((np.mean(val_losses), np.mean(val_losses1), np.mean(val_losses2)))
+
+        with open("./loss_log.txt", "a") as file:
+            file.write(f"Epoch {epoch+1} / {NUM_EPOCHS} Loss {round(np.mean(losses), 4)} ({round(np.mean(losses1), 4)}, {round(np.mean(losses2), 4)}) Val_Loss {round(np.mean(val_losses), 4)} ({round(np.mean(val_losses1), 4)}, {round(np.mean(val_losses2), 4)}) LR {current_lr}\n")
 
         if historical_val_loss[-1][0] < best_loss:
             best_loss = historical_val_loss[-1][0]
