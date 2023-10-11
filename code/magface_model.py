@@ -3,6 +3,7 @@ from torch import nn
 # from torchvision.models.utils import load_state_dict_from_url
 from collections import OrderedDict
 import sys
+import os
 
 
 __all__ = ['iresnet18', 'iresnet34', 'iresnet50', 'iresnet100']
@@ -141,7 +142,7 @@ class IResNet(nn.Module):
 
         x = self.bn2(x)
         x = self.dropout(x)
-        x = x.view(x.size(0), -1)
+        x = x.reshape(x.size(0), -1)
         x = self.fc(x)
 
         x = self.features(x)

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -ex
+
+# This is the master script for the capsule. When you click "Reproducible Run", the code in this file will execute.
+
+# Run FRA on MagFace FRL
+python step1_generate_dataset.py --embedding-source magface --num-samples 10000 --data-path /data --results-path /results --checkpoint-path /data/magface_epoch_00025.pth
+python step2_train_FRA.py --embedding-source magface --num-epochs 3 --batch-size 256 --learning-rate 0.001 --dropout-rate 0.4 --results-path /results
+# python step3_FRA_evaluation.py --embedding-source magface --plot-autoencoder --results-path /results
+
+# Run FRA on ArcFace FRL
+python step1_generate_dataset.py --embedding-source arcface --num-samples 10000 --data-path /data --results-path /results --checkpoint-path /data/arcface_backbone.pth
+python step2_train_FRA.py --embedding-source arcface --num-epochs 3 --batch-size 256 --learning-rate 0.001 --dropout-rate 0.4 --results-path /results
+# python step3_FRA_evaluation.py --embedding-source arcface --plot-autoencoder --results-path /results
+
+# Run FRA on CosFace FRL
+python step1_generate_dataset.py --embedding-source cosface --num-samples 10000 --data-path /data --results-path /results --checkpoint-path /data/cosface_model.pth
+python step2_train_FRA.py --embedding-source cosface --num-epochs 3 --batch-size 256 --learning-rate 0.001 --dropout-rate 0.05 --results-path /results
+# python step3_FRA_evaluation.py --embedding-source cosface --plot-autoencoder --results-path /results

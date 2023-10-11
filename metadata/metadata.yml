@@ -1,0 +1,35 @@
+metadata_version: 1
+name: 'FRA: Face Representation Augmentation'
+description: Since data scarcity is a common problem in deep learning-based solutions,
+  it can be very challenging to build up FR systems that are robust enough to recognize
+  face images with extreme diversity. In this project, we experiment our method that
+  augments the face data in latent space. The proposed method utilizes two major components,
+  one of which is an autoencoder, and the other is a ViT-based model. The former encodes
+  the binarized input images consisting of sparse facial landmarks into a latent space.
+  The latter is used for extracting features from the combined embeddings from a pre-trained
+  FRL approach and the autoencoder part of our model. Lastly, the output of the proposed
+  model is an embedding representing the main identity with the same emotion but with
+  a different posture.
+tags:
+- Computer Vision
+- Deep Learning
+- Transformers
+- Autoencoder (AE)
+- face recognition
+- Data Augmentation
+authors:
+- name: Soroush Hashemifar
+  affiliations:
+  - name: Iran University of Science and Technology
+- name: Abdolreza Marefat
+  affiliations:
+  - name: Islamic Azad University
+- name: Javad Hassannataj Joloudari
+  affiliations:
+  - name: University of Birjand
+- name: Hamid Hassanpour
+  affiliations:
+  - name: Shahrood University of Technology
+corresponding_contributor:
+  name: Javad Hassannataj Joloudari
+  email: javad.hassannataj@birjand.ac.ir
