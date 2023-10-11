@@ -9,7 +9,7 @@ Since data scarcity is a common problem in deep learning-based solutions, it can
 ![image](https://github.com/soroushhashemifar/Face-Representation-Augmentation/assets/24815283/d3d77c4a-61fb-4ee9-85f6-b339e9363edc)
 
 ## Requirements
-This code is implemented in PyTorch, and we have tested the code on [CodeOcean](https://codeocean.com) platform. All the required libraries are listed in a dockerfile inside `/environment`.
+This code is implemented in PyTorch, and we have tested the code on [CodeOcean](https://codeocean.com) platform to check reproducibility. All the required libraries are listed in a dockerfile inside `/environment`.
 
 ## A Quick Start - How to use it
 
