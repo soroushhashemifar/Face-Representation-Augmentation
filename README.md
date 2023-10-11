@@ -4,12 +4,12 @@ Face Representation Augmentation (FRA) @ Expert Systems with Applications 2023 [
 
 ## Objective of FRA
 
-Since data scarcity is a common problem in deep learning-based solutions, it can be very challenging to build up FR systems that are robust enough to recognize face images with extreme diversity. In this paper, we proposed a method that augments the face data in latent space. The proposed method utilizes two major components, one of which is an autoencoder, and the other is a ViT-based model. The former encodes the binarized input images consisting of sparse facial landmarks into a latent space. The latter is used for extracting features from the combined embeddings from a pre-trained FRL approach and the autoencoder part of our model. Lastly, the output of the proposed model is an embedding representing the main identity with the same emotion but with a different posture. This way, we improved the classification accuracy by 9.52, 10.04, and 16.60, in comparison with the based models of MagFace, ArcFace, and CosFace, respectively.
+Since data scarcity is a common problem in deep learning-based solutions, it can be very challenging to build up FR systems that are robust enough to recognize face images with extreme diversity. In this paper, we proposed a method that augments the face data in latent space. The proposed method utilizes two major components, one of which is an autoencoder, and the other is a ViT-based model. The former encodes the binarized input images consisting of sparse facial landmarks into a latent space. The latter is used for extracting features from the combined embeddings from a pre-trained FRL approach and the autoencoder part of our model. Lastly, the output of the proposed model is an embedding representing the main identity with the same emotion but with a different posture. This way, we improved the classification accuracy by 9.52%, 10.04%, and 16.60%, in comparison with the based models of MagFace, ArcFace, and CosFace, respectively.
 
-![overview](https://github.com/soroushhashemifar/Face-Representation-Augmentation/assets/24815283/56cbab25-5759-4988-8747-fd1bfc951aa9)
+![image](https://github.com/soroushhashemifar/Face-Representation-Augmentation/assets/24815283/d3d77c4a-61fb-4ee9-85f6-b339e9363edc)
 
 ## Requirements
-This code is implemented in PyTorch, and we have tested the code on CodeOcean platform. All the required libraries are listed in a dockerfile inside `/environment`.
+This code is implemented in PyTorch, and we have tested the code on [CodeOcean](https://codeocean.com) platform. All the required libraries are listed in a dockerfile inside `/environment`.
 
 ## A Quick Start - How to use it
 
@@ -44,7 +44,13 @@ These saved figures include: ROC and precision-recall curves along with confusio
 
 ## Citing this work
 
-If you use our code, please consider cite our work
+If you use our code, please consider cite our work:
+
+```bibtex
+
+```
+
+On CodeOcean:
 
 ```bibtex
 
